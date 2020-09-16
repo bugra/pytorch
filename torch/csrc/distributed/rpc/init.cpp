@@ -34,7 +34,7 @@ using shared_ptr_class_ = py::class_<T, std::shared_ptr<T>>;
 
 PyObject* rpc_init(PyObject* /* unused */) {
   auto rpc_module =
-      THPObjectPtr(PyImport_ImportModule("torch.distributed.rpc"));
+      THPObjectPtr(PyImport_ImportModule("torch._C"));
   if (!rpc_module) {
     throw python_error();
   }
