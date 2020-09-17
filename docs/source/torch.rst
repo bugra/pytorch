@@ -532,3 +532,4 @@ Utilities
     promote_types
     set_deterministic
     is_deterministic
+    vmap
