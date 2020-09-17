@@ -3144,7 +3144,7 @@ class TestONNXRuntime(unittest.TestCase):
     def test_l1_norm(self):
         class NormModel(torch.nn.Module):
             def forward(self, x):
-                return torch.norm(x, p=1, dim=-1, keepdim=False)
+                return torch.linalg.norm(x, p=1, dim=-1, keepdim=False)
 
         x = torch.randn(4, 2, 3, requires_grad=True)
         self.run_test(NormModel(), x)
@@ -3152,7 +3152,7 @@ class TestONNXRuntime(unittest.TestCase):
     def test_l2_norm(self):
         class NormModel(torch.nn.Module):
             def forward(self, x):
-                return torch.norm(x, p=2, dim=-2, keepdim=False)
+                return torch.linalg.norm(x, p=2, dim=-2, keepdim=False)
 
         x = torch.randn(4, 2, 3, requires_grad=True)
         self.run_test(NormModel(), x)
@@ -3160,7 +3160,7 @@ class TestONNXRuntime(unittest.TestCase):
     def test_frobenius_norm(self):
         class NormModel(torch.nn.Module):
             def forward(self, x):
-                return torch.norm(x, p="fro", dim=0, keepdim=False)
+                return torch.linalg.norm(x, p="fro", dim=0, keepdim=False)
 
         x = torch.randn(4, 2, 3, requires_grad=True)
         self.run_test(NormModel(), x)
@@ -3168,7 +3168,7 @@ class TestONNXRuntime(unittest.TestCase):
     def test_frobenius_norm_keepdim(self):
         class NormModel(torch.nn.Module):
             def forward(self, x):
-                return torch.norm(x, p="fro", dim=(0, 1), keepdim=True)
+                return torch.linalg.norm(x, p="fro", dim=(0, 1), keepdim=True)
 
         x = torch.randn(4, 2, 3, requires_grad=True)
         self.run_test(NormModel(), x)

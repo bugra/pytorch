@@ -4649,11 +4649,11 @@ a")
     def test_random(self):
         @torch.jit.script
         def f(mean, std):
-            return torch.normal(mean, std)
+            return torch.linalg.normal(mean, std)
 
         mean, std = torch.zeros(5, 5), torch.ones(5, 5)
         with torch.random.fork_rng(devices=[]):
-            output = torch.normal(mean, std)
+            output = torch.linalg.normal(mean, std)
         with torch.random.fork_rng(devices=[]):
             script_output = f(mean, std)
         self.assertEqual(output, script_output)
@@ -8778,7 +8778,10 @@ a")
 
         def norm():
             c = torch.tensor([[1, 2, 3], [-1, 1, 4]], dtype=torch.float)
-            return torch.norm(c, p="fro"), torch.norm(c, p="nuc"), torch.norm(c), torch.norm(c, p=.5)
+            return (torch.linalg.norm(c, p="fro"), 
+                    torch.linalg.norm(c, p="nuc"), 
+                    torch.linalg.norm(c), 
+                    torch.linalg.norm(c, p=.5))
 
         self.checkScript(norm, ())
 

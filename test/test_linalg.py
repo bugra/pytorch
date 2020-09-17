@@ -534,7 +534,7 @@ class TestLinalg(TestCase):
             r'Use torch.linalg.norm instead.')
         with warnings.catch_warnings(record=True) as w:
             warnings.simplefilter("always")
-            for func in [torch.norm, torch.functional.norm]:
+            for func in [torch.linalg.norm, torch.functional.norm]:
                 func(torch.rand(10, device=device))
         self.assertEqual(len(w), 2)
         for wi in w:
