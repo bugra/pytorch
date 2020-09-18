@@ -61,19 +61,6 @@ struct DowncastTHC<T, Dim, IndexT, PtrTraits, NewDim, false> :
       DowncastTHCRoot<T, Dim, IndexT, PtrTraits, NewDim, false> {
 };
 
-template <typename T, int Dim, typename IndexT,
-          template <typename U> class PtrTraits,
-          int NewDim>
-struct DowncastTHC<T, Dim, IndexT, PtrTraits, NewDim, true> :
-      DowncastTHCRoot<T, Dim, IndexT, PtrTraits, NewDim, true>  {
-  static THCDeviceTensor<T, NewDim, IndexT, PtrTraits>
-  make(THCState* state, THCudaTensor* t) {
-    thc_static_assert(NewDim < Dim);
-    return toDeviceTensor<T, Dim, IndexT, PtrTraits>(state, t).
-      template downcastOuter<NewDim>();
-  }
-};
-
 } // namespace detail
 
 #define SWITCH_UNROLL_CUDA_CAST_FACTORY(i)                              \

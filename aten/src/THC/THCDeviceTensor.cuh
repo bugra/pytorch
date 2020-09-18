@@ -210,13 +210,6 @@ class THCDeviceTensor {
   /// padding on the leading dimensions.
   template <int NewDim>
   __host__ __device__
-  THCDeviceTensor<T, NewDim, IndexT, PtrTraits> downcastOuter();
-
-  /// Downcast a tensor of dimension `D` to some tensor of dimension
-  /// D' < D by collapsing the leading dimensions. asserts if there is
-  /// padding on the leading dimensions.
-  template <int NewDim>
-  __host__ __device__
   THCDeviceTensor<T, NewDim, IndexT, PtrTraits> downcastInner();
 
   /// Returns a tensor that is a view of the `SubDim`-dimensional slice
